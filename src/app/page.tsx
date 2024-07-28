@@ -1,113 +1,370 @@
-import Image from 'next/image'
+'use client'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
+import { PDFDownloadLink } from '@react-pdf/renderer'
+import { EmployerLetter, formSchema } from '@/app/letter'
+import { useEffect, useState } from 'react'
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
+import { useForm } from 'react-hook-form'
+import { Input } from '@/components/ui/input'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Button } from '@/components/ui/button'
+
+export function Instructions() {
+  const [isClient, setIsClient] = useState(false)
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    mode: 'onChange',
+  })
+
+  return (
+    <Accordion type="single" collapsible className="w-full">
+      <AccordionItem value="item-1">
+        <AccordionTrigger>Employer</AccordionTrigger>
+        <AccordionContent>
+          <p>Your employee must be on the list of </p>
+          <ul className="list-decimal pl-4 pt-2">
+            <li>
+              <div>
+                Fill out the following:
+                <Form {...form}>
+                  <form className="space-y-8">
+                    <FormField
+                      control={form.control}
+                      name="companyName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Company Name</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                          <FormDescription>Full Legal Company Name</FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="companyRepresentativeName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Company Representative Name</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                          <FormDescription>Your Name</FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="companyRepresentativePosition"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Company Representative Position</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                          <FormDescription>Your Name</FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="companyAddress"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Company Address</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                          <FormDescription>Full Address</FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="employeeName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Employee Name</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                          <FormDescription>Full Name</FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="jobTitle"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Job Title</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                          <FormDescription>Job Title</FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="fullTime"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Full Time?</FormLabel>
+                          <FormControl>
+                            <Input placeholder="full time" {...field} />
+                          </FormControl>
+                          <FormDescription>
+                            Write &quot;full time&quot; or &quot;part time&quot;
+                          </FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="startDate"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Start Date</FormLabel>
+                          <FormControl>
+                            <Input type="date" {...field} />
+                          </FormControl>
+                          <FormDescription>Start Date</FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="endDate"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>End Date</FormLabel>
+                          <FormControl>
+                            <Input type="date" {...field} />
+                          </FormControl>
+                          <FormDescription>End Date</FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="salary"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Salary</FormLabel>
+                          <FormControl>
+                            <Input type="number" {...field} />
+                          </FormControl>
+                          <FormDescription>Annual Salary in USD</FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="additionalBenefits"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Additional Benefits</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                          <FormDescription>
+                            Additional Benefits such as insurance or PTO
+                          </FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="education"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Education</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                          <FormDescription>
+                            Name of degree or certification they received and from what school
+                          </FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="previousStatus"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Previous Status</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                          <FormDescription>Previous Visa Status if they had any</FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    {!!form.watch('previousStatus') && (
+                      <>
+                        <FormField
+                          control={form.control}
+                          name="previousStatusStartDate"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Previous Status</FormLabel>
+                              <FormControl>
+                                <Input type="date" {...field} />
+                              </FormControl>
+                              <FormDescription>Previous Visa Status Start Date</FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="previousStatusEndDate"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Previous Status</FormLabel>
+                              <FormControl>
+                                <Input type="date" {...field} />
+                              </FormControl>
+                              <FormDescription>Previous Visa Status End Date</FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </>
+                    )}
+                    <FormField
+                      control={form.control}
+                      name="tasks"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Tasks</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                          <FormDescription>
+                            Write the tasks the employee will be doing
+                          </FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </form>
+                </Form>
+                {isClient &&
+                  (form.formState.isValid ? (
+                    <Button variant="outline" className="mt-2">
+                      <PDFDownloadLink
+                        document={<EmployerLetter formData={form.getValues()} />}
+                        fileName="employer-letter.pdf"
+                      >
+                        {({ blob, url, loading, error }) =>
+                          loading ? 'Loading document...' : 'Download Letter (employer-letter.pdf)'
+                        }
+                      </PDFDownloadLink>
+                    </Button>
+                  ) : (
+                    <div className="mt-4">Please finish filling out all fields</div>
+                  ))}
+              </div>
+            </li>
+            <li className="mt-4">
+              Download the letter and give to employee. The employee when crossing the border will
+              present this to a border officer. That&apos;s it!
+            </li>
+          </ul>
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-2">
+        <AccordionTrigger>Employee</AccordionTrigger>
+        <AccordionContent>
+          <span>
+            You&apos;re employer will give you the letter above. You may establish eligibility for
+            TN classification at the time you seek admission to the United States by presenting
+            required documentation to a U.S. Customs and Border Protection (CBP) officer at certain
+            CBP-designated U.S. ports of entry (
+            <a href="https://www.cbp.gov/about/contact/ports">look here</a>) or at a designated
+            pre-clearance/pre-flight inspection station (
+            <a href="https://www.cbp.gov/about/contact/ports">same link also includes airports</a>).
+            You must provide the following documentation to the CBP officer:
+          </span>
+          <ul className="list-disc pl-4 pt-2">
+            <li>Proof of Canadian citizenship</li>
+            <li>Letter provided by employer above</li>
+            <li>
+              The physical degree/diploma provided by your university (transcripts don&apos;t count)
+            </li>
+          </ul>
+          <p>You will be admitted as a TN nonimmigrant.</p>
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
+  )
+}
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className="before:bg-gradient-radial after:bg-gradient-conic relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
+    <div className="container mx-auto p-4">
+      <h1 className="mb-4 text-2xl font-bold">
+        Hire a Canadian to work in the US <strong>No Visa required!</strong>
+      </h1>
+      <p>
+        To see exact guidelines: visit the{' '}
+        <a href="https://www.uscis.gov/working-in-the-united-states/temporary-workers/tn-nafta-professionals">
+          uscis.gov website
         </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
+      </p>
+      <p>
+        This form is for companies hiring Canadian <strong>Citizens</strong> who seek a TN
+        non-immigrant status to stay in the US for 3 years. To stay longer, first get the letter,
+        then get the employer to fill out Form I-129 (
+        <a href="https://www.uscis.gov/working-in-the-united-states/temporary-workers/tn-nafta-professionals">
+          see here
         </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
+        ) once you&apos;re in the U.S.
+      </p>
+      <p>
+        <strong>First</strong>, check if the employee&apos;s occupation is listed{' '}
+        <a href="https://www.ecfr.gov/current/title-8/chapter-I/subchapter-B/part-214/subpart-A/section-214.6">
+          here in &quot;Appendix 2 to Annex 16-A of Chapter 16 (Annotated)&quot;
         </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+        . The employee must also have the degree. If they don&apos;t, they will not be eligible for
+        TN status.
+      </p>
+      <Instructions />
+    </div>
   )
 }
