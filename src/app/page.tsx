@@ -345,6 +345,7 @@ export default function Home() {
         <a href="https://www.uscis.gov/working-in-the-united-states/temporary-workers/tn-nafta-professionals">
           uscis.gov website
         </a>
+        . <strong>This is not legal advice.</strong>
       </p>
       <p>
         This form is for companies hiring Canadian <strong>Citizens</strong> who seek a TN
@@ -364,6 +365,11 @@ export default function Home() {
         TN status.
       </p>
       <Instructions />
+      <span>
+        For more help, please visit https://github.com/Andrew-Chen-Wang/Canadian-in-US-employment
+        and file a GitHub issue. Please do not email me; I am not a lawyer. In fact, I am American
+        with, at the moment, a Canadian girlfriend.
+      </span>
     </div>
   )
 }
