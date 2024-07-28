@@ -39,7 +39,6 @@ function Instructions() {
       <AccordionItem value="item-1">
         <AccordionTrigger>Employer</AccordionTrigger>
         <AccordionContent>
-          <p>Your employee must be on the list of </p>
           <ul className="list-decimal pl-4 pt-2">
             <li>
               <div>
