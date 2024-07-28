@@ -23,7 +23,7 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/components/ui/button'
 
-export function Instructions() {
+function Instructions() {
   const [isClient, setIsClient] = useState(false)
   useEffect(() => {
     setIsClient(true)
