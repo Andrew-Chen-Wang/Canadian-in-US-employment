@@ -338,7 +338,7 @@ export default function Home() {
   return (
     <div className="container mx-auto p-4">
       <h1 className="mb-4 text-2xl font-bold">
-        Hire a Canadian to work in the US <strong>No Visa required!</strong>
+        2 Minutes: Hire a Canadian to work in the US <strong>No Visa required!</strong>
       </h1>
       <p>
         To see exact guidelines: visit the{' '}
